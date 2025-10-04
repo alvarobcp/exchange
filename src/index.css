@@ -1,52 +1,22 @@
-body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
+@import 'tailwindcss';
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-.formContainer{
-    display: flex;
+input[type='number'] {
+  -moz-appearance: textfield;
 }
 
-select{
-    border: none;
-    width: 100px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 36px;
-}
-
-input{
-    width: 200px;
-    border: none;
-    border-bottom: 2px black solid;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 36px;
-    text-align: end;
-
-    
-}
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
-}
-
-input[type=number] { -moz-appearance:textfield; }
-
-
-
-
-
-.convertedText{
-width: 200px;
-border-bottom: 2px black solid;
-}
-
-p{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 36px;
-    text-align: end;
+/*Añadir con Tailwind*/
+body,
+html,
+h1,
+p,
+button,
+input,
+option {
+  font-family: 'Geist', sans-serif;
 }
