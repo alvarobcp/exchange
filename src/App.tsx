@@ -1,4 +1,12 @@
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+import {
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts';
 import { useEffect, useState } from 'react';
 import { getExchangeData } from './useFetch';
 
@@ -103,13 +111,13 @@ function App() {
       />
       {/* COmponentes y elementos */}
       <div className="flex flex-col gap-4">
-        <h1 className="m-8 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text font-sans text-7xl font-bold text-transparent">
+        <h1 className="m-4 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text font-sans text-5xl font-bold text-transparent md:m-8 md:text-7xl">
           Conversor de divisas
         </h1>
 
-        <div className="font-sans text-4xl">
+        <div className="mx-8 font-sans text-3xl md:mx-0 md:text-4xl">
           <form onSubmit={handleSubmit}>
-            <p className="pb-3 text-3xl font-semibold text-blue-500">¿Qué quieres cambiar?</p>
+            <p className="pb-3 text-3xl font-semibold text-blue-500">¿Qué quieres cambiar? 🤑</p>
             <div className="mb-4 flex flex-wrap items-center justify-center gap-3">
               <p>Quiero cambiar </p>
               <select
@@ -159,10 +167,11 @@ function App() {
               </button>
             </div>
 
-            <p className="pt-5 text-3xl font-semibold text-blue-500">¿Cuánto quieres cambiar?</p>
+            <p className="pt-5 text-3xl font-semibold text-blue-500">¿Cuánto quieres cambiar? 💰</p>
 
             <div className="flex items-center justify-center gap-3">
               <input
+                id="exhange-input"
                 className="w-52 border-b-2 border-solid border-[#2B3040] px-4 py-3 text-center transition-colors duration-100 outline-none focus:border-[#596A95]"
                 type="number"
                 placeholder="100"
@@ -183,30 +192,34 @@ function App() {
                 </p>
                 <p className="mt-2 text-2xl">Ratio de cambio: {rate.toFixed(2)}</p>
                 {/* He usado recharts (https://www.npmjs.com/package/recharts) */}
-                <LineChart width={500} height={200} data={chartData} className="mt-10 -ml-10">
-                  <CartesianGrid stroke="#aaa" strokeDasharray="5 5" />
-                  <Line type="linear" dataKey="Ratio" stroke="#1e40af" strokeWidth={2} />
-                  <XAxis
-                    tick={{
-                      fontFamily: 'Geist, sans-serif',
-                      fontSize: 14,
-                      fill: '#06b6d4',
-                      dy: 10,
-                    }}
-                    dataKey="name"
-                    className="mr-2 text-sm font-medium"
-                  />
-                  <YAxis
-                    tick={{
-                      fontFamily: 'Geist, sans-serif',
-                      fontSize: 14,
-                      fill: '#06b6d4',
-                      dx: -10,
-                    }}
-                    className="mt-2 text-sm font-medium"
-                  />
-                  <Tooltip labelClassName="text-base" wrapperClassName="text-lg" />
-                </LineChart>
+                <div className="mx-auto my-5 mt-6 h-[300px] w-full max-w-2xl rounded-2xl p-5">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={chartData} className="mt-10 -ml-5 sm:-ml-8">
+                      <CartesianGrid stroke="#aaa" strokeDasharray="5 5" />
+                      <Line type="linear" dataKey="Ratio" stroke="#1e40af" strokeWidth={2} />
+                      <XAxis
+                        tick={{
+                          fontFamily: 'Geist, sans-serif',
+                          fontSize: 14,
+                          fill: '#06b6d4',
+                          dy: 10,
+                        }}
+                        dataKey="name"
+                        className="mr-2 text-sm font-medium"
+                      />
+                      <YAxis
+                        tick={{
+                          fontFamily: 'Geist, sans-serif',
+                          fontSize: 14,
+                          fill: '#06b6d4',
+                          dx: -10,
+                        }}
+                        className="mt-2 text-sm font-medium"
+                      />
+                      <Tooltip labelClassName="text-base" wrapperClassName="text-lg" />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
               </div>
             ) : (
               <p></p>
@@ -222,9 +235,15 @@ function App() {
             </div>
           </form>
         </div>
-
-        <div className="formContainer"></div>
       </div>
+      <footer className="fixed bottom-0 left-0 flex w-full flex-col bg-gray-900 py-3 text-center text-sm text-white">
+        <p className="">
+          Developed by Álvaro Delgado to practise with React, TypeScript and TailwindCSS.
+        </p>
+        <a className="pt-2 underline" href="https://alvarobcp.github.io/alvaro-portfolio/">
+          Visit my portfolio
+        </a>
+      </footer>
     </>
   );
 }
