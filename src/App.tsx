@@ -9,8 +9,6 @@ import {
 } from 'recharts';
 import { useEffect, useState } from 'react';
 import { getExchangeData } from './useFetch';
-
-import type { exchangeData } from './interfaces/dataInterface';
 import type { chartData } from './interfaces/dataInterface';
 
 import './App.css';
@@ -28,7 +26,6 @@ function App() {
   //Control de las variables y sus datos
   const [myCurrency, setMyCurrency] = useState('');
   const [converted, setConverted] = useState(0);
-  const [exchangeRates, setExchangeRates] = useState<exchangeData>();
   const [isConverted, setIsConverted] = useState(false);
 
   //Arrays con el tipado
@@ -42,7 +39,7 @@ function App() {
       const exchangeRates = await getExchangeData(
         `https://api.fxratesapi.com/latest?base=${firstCurrency}&resolution=1m&amount=1&places=6&format=json`
       );
-      setExchangeRates(exchangeRates);
+
       setRate(exchangeRates.rates[secondCurrency]);
       setCurrencies(Object.keys(exchangeRates.rates));
     };
@@ -109,7 +106,7 @@ function App() {
             'radial-gradient(125% 125% at 50% 10%, #f0f9ff 20%, #ecf8fe 60%, #93c5fd 100%)',
         }}
       />
-      {/* COmponentes y elementos */}
+      {/* Componentes y elementos */}
       <div className="flex flex-col gap-4">
         <h1 className="m-4 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text font-sans text-5xl font-bold text-transparent md:m-8 md:text-7xl">
           Conversor de divisas
@@ -123,7 +120,12 @@ function App() {
               <select
                 className="w-20 rounded-2xl border-2 border-gray-800 bg-gradient-to-bl from-blue-200 to-cyan-200 text-center text-2xl text-gray-900"
                 value={firstCurrency}
-                onChange={(e) => setFirstCurrency(e.target.value)}
+                onChange={(e) => {
+                  setFirstCurrency(e.target.value);
+                  setConverted(0);
+                  setMyCurrency('');
+                  setIsConverted(false);
+                }}
               >
                 <option className="" value="">
                   ---
@@ -138,7 +140,12 @@ function App() {
               <select
                 className="w-20 rounded-2xl border-2 border-gray-800 bg-gradient-to-bl from-blue-200 to-cyan-200 text-center text-2xl text-gray-900"
                 value={secondCurrency}
-                onChange={(e) => setSecondCurrency(e.target.value)}
+                onChange={(e) => {
+                  setSecondCurrency(e.target.value);
+                  setConverted(0);
+                  setMyCurrency('');
+                  setIsConverted(false);
+                }}
               >
                 <option value="">Select</option>
                 {currencies.map((c) => (
